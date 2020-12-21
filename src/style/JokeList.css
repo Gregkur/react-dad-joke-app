@@ -1,0 +1,43 @@
+.JokeList {
+  display: flex;
+  width: 80%;
+  height: 80%;
+}
+.JokeList-sidebar {
+  background: #9575cd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  border-radius: 10px;
+  -webkit-box-shadow: 10px 16px 15px 1px rgba(112, 112, 112, 1);
+  -moz-box-shadow: 10px 16px 15px 1px rgba(112, 112, 112, 1);
+  box-shadow: 10px 16px 15px 1px rgba(112, 112, 112, 1);
+  z-index: 2;
+}
+.JokeList-sidebar > img {
+  width: 60%;
+}
+.JokeList-title {
+  letter-spacing: 0.6rem;
+  color: white;
+  font-size: 45px;
+  font-weight: 500;
+}
+.JokeList-title > span {
+  font-weight: bold;
+  letter-spacing: 0;
+}
+.JokeList-jokes {
+  height: 90%;
+  background: white;
+  align-self: center;
+  /* overflow: scroll; */
+  width: 70%;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -webkit-box-shadow: 10px 16px 15px 1px rgba(112, 112, 112, 1);
+  -moz-box-shadow: 10px 16px 15px 1px rgba(112, 112, 112, 1);
+  box-shadow: 10px 16px 15px 1px rgba(112, 112, 112, 1);
+}

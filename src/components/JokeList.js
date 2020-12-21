@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Joke from "./Joke";
 import "../style/JokeList.css";
+import emoji from "../emoji.png";
 const axios = require("axios").default;
 
 export default class JokeList extends Component {
@@ -33,12 +34,22 @@ export default class JokeList extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>Dad Jokes</h1>
-        <ul>
-          <li>
-            <Joke />
-          </li>
+      <div className="JokeList">
+        <div className="JokeList-sidebar">
+          <h1 className="JokeList-title">
+            <span>Dad</span> Jokes
+          </h1>
+          <img alt="laughing emoji" src={emoji} />
+          <button>Load more!</button>
+        </div>
+        <ul className="JokeList-jokes">
+          {this.state.jokes.map((j) => {
+            return (
+              <li>
+                <Joke content={j} />
+              </li>
+            );
+          })}
         </ul>
       </div>
     );
