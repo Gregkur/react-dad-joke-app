@@ -4,26 +4,28 @@ import "../style/JokeList.css";
 const axios = require("axios").default;
 
 export default class JokeList extends Component {
+  static defaultProps = {
+    numJokes: 10,
+  };
   constructor(props) {
     super(props);
+    this.state = {
+      jokes: [],
+    };
     this.fetchJokes = this.fetchJokes.bind(this);
   }
   //should fetch jokes through axios
-  fetchJokes() {
+  async fetchJokes() {
     const url = "https://icanhazdadjoke.com/";
-    axios
-      .get(url)
-      .then(function (response) {
-        // handle success
-        console.log(response, "success");
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error, "failed to fetch");
-      })
-      .then(function () {
-        // always executed
-      });
+    let jokeList = [];
+    while (jokeList.length < this.props.numJokes) {
+      await axios
+        .get(url, { headers: { Accept: "application/json" } })
+        .then(function (response) {
+          jokeList.push(response.data.joke);
+        });
+    }
+    this.setState({ jokes: jokeList });
   }
 
   componentDidMount() {
