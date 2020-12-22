@@ -13,6 +13,7 @@ export default class JokeList extends Component {
     super(props);
     this.state = {
       jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]"),
+      loading: false,
     };
     this.fetchJokes = this.fetchJokes.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -31,6 +32,7 @@ export default class JokeList extends Component {
     }
     this.setState(
       (st) => ({
+        loading: false,
         jokes: [...st.jokes, ...jokeList],
       }),
       () =>
@@ -45,6 +47,7 @@ export default class JokeList extends Component {
     }
   }
   handleClick() {
+    this.setState({ loading: true });
     this.fetchJokes();
   }
   handleVote(id, delta) {
@@ -59,6 +62,30 @@ export default class JokeList extends Component {
     );
   }
   render() {
+    if (this.state.loading) {
+      return (
+        <div>
+          <h1 className="JokeList-title">Loading</h1>
+          <svg
+            className="spinner"
+            width="170px"
+            height="170px"
+            viewBox="0 0 66 66"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              className="path"
+              fill="none"
+              strokeWidth="6"
+              strokeLinecap="round"
+              cx="33"
+              cy="33"
+              r="30"
+            ></circle>
+          </svg>
+        </div>
+      );
+    }
     return (
       <div className="JokeList">
         <div className="JokeList-sidebar">
