@@ -53,15 +53,13 @@ export default class JokeList extends Component {
         <ul className="JokeList-jokes">
           {this.state.jokes.map((j) => {
             return (
-              <li>
-                <Joke
-                  content={j.joke}
-                  votes={j.votes}
-                  key={j.id}
-                  upvote={() => this.handleVote(j.id, 1)}
-                  downvote={() => this.handleVote(j.id, -1)}
-                />
-              </li>
+              <Joke
+                content={j.joke}
+                votes={j.votes}
+                key={j.id}
+                upvote={() => this.handleVote(j.id, 1)}
+                downvote={() => this.handleVote(j.id, -1)}
+              />
             );
           })}
         </ul>

@@ -33,7 +33,7 @@
   height: 90%;
   background: white;
   align-self: center;
-  /* overflow: scroll; */
+  overflow: scroll;
   width: 70%;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
