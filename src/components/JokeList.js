@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Joke from "./Joke";
 import "../style/JokeList.css";
 import emoji from "../emoji.png";
+import { v4 as uuid } from "uuid";
 const axios = require("axios").default;
 
 export default class JokeList extends Component {
@@ -23,7 +24,7 @@ export default class JokeList extends Component {
       await axios
         .get(url, { headers: { Accept: "application/json" } })
         .then(function (response) {
-          jokeList.push({ joke: response.data.joke, votes: 0 });
+          jokeList.push({ joke: response.data.joke, votes: 0, id: uuid() });
         });
     }
     this.setState({ jokes: jokeList });
@@ -32,6 +33,7 @@ export default class JokeList extends Component {
   componentDidMount() {
     this.fetchJokes();
   }
+  handleVote(id, delta) {}
   render() {
     return (
       <div className="JokeList">
@@ -46,7 +48,7 @@ export default class JokeList extends Component {
           {this.state.jokes.map((j) => {
             return (
               <li>
-                <Joke content={j.joke} votes={j.votes} />
+                <Joke content={j.joke} votes={j.votes} key={j.id} />
               </li>
             );
           })}
