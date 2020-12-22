@@ -33,7 +33,13 @@ export default class JokeList extends Component {
   componentDidMount() {
     this.fetchJokes();
   }
-  handleVote(id, delta) {}
+  handleVote(id, delta) {
+    this.setState((st) => ({
+      jokes: st.jokes.map((j) =>
+        j.id === id ? { ...j, votes: j.votes + delta } : j
+      ),
+    }));
+  }
   render() {
     return (
       <div className="JokeList">
@@ -48,7 +54,13 @@ export default class JokeList extends Component {
           {this.state.jokes.map((j) => {
             return (
               <li>
-                <Joke content={j.joke} votes={j.votes} key={j.id} />
+                <Joke
+                  content={j.joke}
+                  votes={j.votes}
+                  key={j.id}
+                  upvote={() => this.handleVote(j.id, 1)}
+                  downvote={() => this.handleVote(j.id, -1)}
+                />
               </li>
             );
           })}
