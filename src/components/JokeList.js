@@ -23,7 +23,7 @@ export default class JokeList extends Component {
       await axios
         .get(url, { headers: { Accept: "application/json" } })
         .then(function (response) {
-          jokeList.push(response.data.joke);
+          jokeList.push({ joke: response.data.joke, votes: 0 });
         });
     }
     this.setState({ jokes: jokeList });
@@ -46,7 +46,7 @@ export default class JokeList extends Component {
           {this.state.jokes.map((j) => {
             return (
               <li>
-                <Joke content={j} />
+                <Joke content={j.joke} votes={j.votes} />
               </li>
             );
           })}
