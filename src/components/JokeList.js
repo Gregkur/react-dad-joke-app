@@ -15,6 +15,8 @@ export default class JokeList extends Component {
       jokes: JSON.parse(window.localStorage.getItem("jokes") || "[]"),
       loading: false,
     };
+    this.seenJokes = new Set(this.state.jokes.map((j) => j.joke));
+    console.log(this.seenJokes);
     this.fetchJokes = this.fetchJokes.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -27,7 +29,13 @@ export default class JokeList extends Component {
       await axios
         .get(url, { headers: { Accept: "application/json" } })
         .then(function (response) {
-          jokeList.push({ joke: response.data.joke, votes: 0, id: uuid() });
+          console.log(this.seenJokes);
+          let newJoke = response.data.joke;
+          if (!this.seenJokes.has(newJoke)) {
+            jokeList.push({ joke: newJoke, votes: 0, id: uuid() });
+          } else {
+            console.log("FOUND!");
+          }
         });
     }
     this.setState(
@@ -64,26 +72,23 @@ export default class JokeList extends Component {
   render() {
     if (this.state.loading) {
       return (
-        <div>
-          <h1 className="JokeList-title">Loading</h1>
-          <svg
-            className="spinner"
-            width="170px"
-            height="170px"
-            viewBox="0 0 66 66"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              className="path"
-              fill="none"
-              strokeWidth="6"
-              strokeLinecap="round"
-              cx="33"
-              cy="33"
-              r="30"
-            ></circle>
-          </svg>
-        </div>
+        <svg
+          className="spinner"
+          width="170px"
+          height="170px"
+          viewBox="0 0 66 66"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            className="path"
+            fill="none"
+            strokeWidth="6"
+            strokeLinecap="round"
+            cx="33"
+            cy="33"
+            r="30"
+          ></circle>
+        </svg>
       );
     }
     return (

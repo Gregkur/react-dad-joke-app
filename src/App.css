@@ -8,7 +8,7 @@
   background: rgb(255, 255, 255);
   background: linear-gradient(
     125deg,
-    rgba(255, 255, 255, 1) 34%,
-    rgba(126, 125, 125, 1) 100%
+    rgb(219, 218, 255) 34%,
+    rgb(194, 41, 181) 100%
   );
 }
